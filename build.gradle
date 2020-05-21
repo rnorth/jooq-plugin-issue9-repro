@@ -23,27 +23,3 @@ tasks {
         basePackageName = "example.domain"
     }
 }
-
-compileJava.dependsOn(generateJooqClasses)
-
-sourceSets {
-    jooq {
-        java {
-            srcDirs "${buildDir}/generated-jooq"
-            compileClasspath += main.compileClasspath
-            runtimeClasspath += main.runtimeClasspath
-        }
-    }
-    main {
-        java {
-            compileClasspath += jooq.output
-            runtimeClasspath += jooq.output
-        }
-    }
-    test {
-        java {
-            compileClasspath += jooq.output
-            runtimeClasspath += jooq.output
-        }
-    }
-}
