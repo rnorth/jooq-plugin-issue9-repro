@@ -2,7 +2,7 @@ plugins {
     id "java"
     id "application"
     id "io.freefair.lombok" version "5.0.1"
-    id "com.revolut.jooq-docker" version "0.3.3"
+    id "com.revolut.jooq-docker" version "0.2.5"
 }
 
 repositories {
@@ -21,29 +21,5 @@ dependencies {
 tasks {
     generateJooqClasses {
         basePackageName = "example.domain"
-    }
-}
-
-compileJava.dependsOn(generateJooqClasses)
-
-sourceSets {
-    jooq {
-        java {
-            srcDirs "${buildDir}/generated-jooq"
-            compileClasspath += main.compileClasspath
-            runtimeClasspath += main.runtimeClasspath
-        }
-    }
-    main {
-        java {
-            compileClasspath += jooq.output
-            runtimeClasspath += jooq.output
-        }
-    }
-    test {
-        java {
-            compileClasspath += jooq.output
-            runtimeClasspath += jooq.output
-        }
     }
 }
